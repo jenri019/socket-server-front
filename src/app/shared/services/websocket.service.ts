@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { io, Socket } from "socket.io-client";
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
@@ -28,7 +29,14 @@ export class WebsocketService {
     }
 
     emit(event: string, payload?: any, callback?: Function) {
-        console.log('Emitting mensaje');
         this.socket.emit(event, payload, callback)
+    }
+
+    listen(event: string) {
+        return new Observable(observer => {
+            this.socket.on(event, (data: any) => {
+                observer.next(data);
+            });
+        });
     }
 }

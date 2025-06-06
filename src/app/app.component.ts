@@ -7,7 +7,7 @@ import { ChatComponent } from "./shared/components/chat/chat.component";
 @Component({
     selector: 'app-root',
     imports: [
-        RouterOutlet,
+        //RouterOutlet,
         FooterComponent,
         ChatComponent
     ],
