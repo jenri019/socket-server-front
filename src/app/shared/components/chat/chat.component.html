@@ -1,0 +1,10 @@
+<section class="p-4 flex justify-center items-center">
+    <div class="container max-w-3xl">
+        <h1 class="font-bold text-3xl">Mensajes</h1>
+        <hr class="my-4 w-full">
+        <form [formGroup]="form" (ngSubmit)="send()">
+            <input type="text" class="w-full p-2 rounded-sm border border-gray-400 outline-blue-400" placeholder="Escribe tu mensaje"
+                formControlName="message">
+        </form>
+    </div>
+</section>
