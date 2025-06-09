@@ -1,0 +1,7 @@
+<div class="p-2 flex flex-col border border-gray-400 overflow-y-auto h-120">
+    <h1>Userlist</h1>
+    <hr class="my-4 w-full">
+    <pre>
+        {{ activeUsers$ | async | json }}
+    </pre>
+</div>
