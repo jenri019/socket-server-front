@@ -6,7 +6,10 @@ import { ChatService } from '../../services/chat.service';
 
 @Component({
     selector: 'app-messages-page',
-    imports: [ChatComponent, UserListComponent],
+    imports: [
+        ChatComponent,
+        UserListComponent
+    ],
     templateUrl: './messagesPage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

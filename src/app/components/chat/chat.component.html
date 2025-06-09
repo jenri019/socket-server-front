@@ -1,14 +1,14 @@
-<section class="flex flex-col items-center h-120">
-    <div class="container">
+<section class="flex flex-col h-full m-2">
+    <div class="w-full">
         <h1 class="font-bold text-3xl">Mensajes</h1>
         <hr class="my-4 w-full">
         <form [formGroup]="form" (ngSubmit)="send()">
             <input type="text" class="form-input" placeholder="Escribe tu mensaje" formControlName="message">
         </form>
     </div>
-    <div #messagesContainer class="w-full border overflow-y-auto border-gray-400 py-2 mt-2 flex-1">
+    <div #messagesContainer class="w-full overflow-y-auto py-2 mt-2 flex-1">
         @for (message of messages(); track $index) {
-        <li class="p-2 text-gray-600 list-item list-none border-b border-gray-200">
+        <li class="p-2 text-gray-600 list-item list-none">
             {{ message.from }}: {{ message.body }}
         </li>
         }

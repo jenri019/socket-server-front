@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .form-input {
-    @apply w-full p-2 rounded-sm border border-gray-400 outline-blue-400;
+    @apply w-full p-2 rounded-sm outline outline-gray-400 outline-blue-400;
 }
 
 .form-button {

@@ -1,11 +1,10 @@
-<div class="flex flex-col items-center p-4">
-    <div class="flex justify-end items-center w-full mb-4">
+<section class="flex flex-col h-[calc(100vh)]">
+    <header class="flex flex-wrap top-0 left-0 justify-end items-center w-full p-2 fixed h-[4rem]">
         <h1 class="mr-4">Usuario: <small>{{ _websocketService.getUser() }}</small></h1>
         <button (click)="_websocketService.logoutWs()" class="form-button">Logout</button>
+    </header>
+    <div class="flex flex-col sm:flex-row mt-[4rem] flex-1 w-full gap-4 outline-1 overflow-hidden">
+            <app-user-list class="w-full h-full sm:w-[20rem] fixed outline-1"/>
+            <app-chat class="w-full h-full sm:ml-[20rem]"/>
     </div>
-    <hr class="my-4 w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-        <app-user-list />
-        <app-chat />
-    </div>
-</div>
+</section>
