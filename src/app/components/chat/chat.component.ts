@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { Subscription } from 'rxjs';
+import { Message } from '../../interfaces/message.interface';
 
 @Component({
     selector: 'app-chat',
@@ -12,17 +13,23 @@ import { Subscription } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatComponent implements OnInit, OnDestroy {
-    private _formBuilder = inject(FormBuilder);
+    @ViewChild('messagesContainer') messagesContainer!: ElementRef<HTMLDivElement>;
     _chatService = inject(ChatService);
+
+    private _formBuilder = inject(FormBuilder);
     form: FormGroup = this._formBuilder.group({
         message: ['']
     });
+
     messagesSubscription!: Subscription;
+    messages = signal<Message[]>([]);
 
     ngOnInit() {
         this.messagesSubscription = this._chatService.getMessages().subscribe({
-            next: (message: any) => {
-                console.log('New message received:', message);
+            next: (message: Message) => {
+                //console.log('New message received:', message);
+                this.messages.update(msgs => [...msgs, message]);
+                setTimeout(() => this.scrollMessagesToBottom(), 20);
             },
             error: (err: any) => {
                 console.error('Error receiving message:', err);
@@ -35,9 +42,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     send() {
-        const message = this.form.get('message')?.value;
-        if (!message || message.trim() === '') return;
+        const message = this.form.get('message')?.value.trim();
+        if (!message || message === '') return;
         this._chatService.sendMessage(message);
         this.form.reset();
+    }
+
+    scrollMessagesToBottom() {
+        if (this.messagesContainer) {
+            this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+        }
     }
 }
