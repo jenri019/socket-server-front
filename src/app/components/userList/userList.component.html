@@ -1,5 +1,5 @@
 <div class="overflow-y-auto h-[calc(100vh-4rem)] bg-blue-900 text-white mt-[4rem]">
-    @for (user of activeUsers(); track user.id) {
+    @for (user of _chatService.activeUsers(); track user.id) {
         <div class="border bg-white text-blue-900 border-gray-200 p-2 mx-1 my-2 cursor-pointer rounded-lg">{{user.name}}</div>
     }
 </div>

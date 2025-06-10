@@ -11,7 +11,7 @@ import type{ Userlist } from '../../interfaces/user.interfaces';
 export class UserListComponent implements OnInit {
     _chatService = inject(ChatService);
 
-    activeUsers = toSignal<Userlist[]>(this._chatService.getActiveUsers());
+    //activeUsers = toSignal<Userlist[]>(this._chatService.getActiveUsers());
 
     constructor() {}
 

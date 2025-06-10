@@ -26,12 +26,11 @@ export default class LoginPageComponent {
         if (!username || username === '') return;
         this._websocketService.loginWs(username)
             .then(() => {
-                console.log('Login successful');
                 this.form.reset();
                 this.router.navigate(['/messages']);
             })
             .catch(error => {
-                console.error('Login error:', error);
+                //console.error('Login error:', error);
             });
     }
 }
