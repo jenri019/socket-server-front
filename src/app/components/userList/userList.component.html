@@ -1,7 +1,5 @@
-<div class="flex flex-col m-2 overflow-y-auto">
-    <h1>Userlist</h1>
-    <hr class="my-4 w-full">
-    <pre>
-        {{ activeUsers$ | async | json }}
-    </pre>
+<div class="overflow-y-auto h-[calc(100vh-4rem)] bg-blue-900 text-white mt-[4rem]">
+    @for (user of activeUsers(); track user.id) {
+        <div class="border bg-white text-blue-900 border-gray-200 p-2 mx-1 my-2 cursor-pointer rounded-lg">{{user.name}}</div>
+    }
 </div>

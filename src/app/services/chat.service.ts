@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { WebsocketService } from './websocket.service';
 import { map, Observable } from 'rxjs';
-import { Message } from '../interfaces/message.interface';
+import type { Message } from '../interfaces/message.interface';
+import type { Userlist } from '../interfaces/user.interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -39,8 +40,14 @@ export class ChatService {
         );
     }
 
-    getActiveUsers() {
-        return this._websocketService.listen('active-users');
+    getActiveUsers(): Observable<Userlist[]> {
+        return this._websocketService.listen('active-users').pipe(
+            map((users: any) => users.map((user: any) => ({
+                id: user.id,
+                name: user.name,
+                room: user.room
+            })))
+        );
     }
 
     emitActiveUsers() {
