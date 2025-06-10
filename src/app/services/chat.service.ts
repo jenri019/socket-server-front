@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { WebsocketService } from './websocket.service';
-import { map, Observable } from 'rxjs';
 import type { Message } from '../interfaces/message.interface';
 import type { Userlist } from '../interfaces/user.interfaces';
 
@@ -9,9 +8,9 @@ import type { Userlist } from '../interfaces/user.interfaces';
 })
 export class ChatService {
     _websocketService = inject(WebsocketService);
-    chatroom = signal<string>('priavte');
+    chatroom = signal<string>('general');
     activeUsers = signal<Userlist[]>([]);
-    privateMessages = signal<Message[]>([]);
+    privateMessages = signal<Record<string, any[]>>({});
     generalMessages = signal<Message[]>([]);
 
     constructor() {
@@ -22,13 +21,22 @@ export class ChatService {
 
         // Escuchar mensajes privados
         this._websocketService.listen('new-private-message').subscribe((message: any) => {
-            console.log('Private message received:', message);
-            this.privateMessages.update(msgs => [...msgs, { from: message.from, body: message.body }]);
+            const { from, body } = message;
+            // Guarda el mensaje enviado en la conversación privada
+            if (from in this.privateMessages())
+                this.privateMessages.update(messages => ({
+                    ...messages,
+                    [from]: [...messages[from], { from, body }]
+                }));
+            else
+                this.privateMessages.update(messages => ({
+                    ...messages,
+                    [from]: [{ from, body }]
+                }));
         });
 
         // Escuchar cambios en los usuarios activos
         this._websocketService.listen('active-users').subscribe((users: any) => {
-            console.log('Active users:', users);
             this.activeUsers.set(users);
         });
     }
@@ -41,8 +49,25 @@ export class ChatService {
         if (this.chatroom() === 'general') {
             this._websocketService.emit('message', payload);
         } else {
-            console.log('Sending private message to:', this.activeUsers()[0].id);
-            this._websocketService.emit('private-message', { ...payload, to: this.activeUsers()[0].id });
+            const toUser = this.activeUsers().find(user => user.name === this.chatroom());
+            if (!toUser) return;
+            const toId = toUser.id;
+            const toName = toUser.name;
+            this._websocketService.emit('private-message', { ...payload, to: toId });
+
+            // Guarda el mensaje enviado en la conversación privada
+            if (toName in this.privateMessages()) {
+                this.privateMessages.update(messages => ({
+                    ...messages,
+                    [toName]: [...messages[toName], payload]
+                }));
+            }
+            else {
+                this.privateMessages.update(messages => ({
+                    ...messages,
+                    [toName]: [payload]
+                }));
+            }
         }
     }
 
