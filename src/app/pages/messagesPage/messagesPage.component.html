@@ -4,9 +4,9 @@
         <button class="form-button sm:hidden" (click)="toggleHeader()">Usuarios</button>
         <span class="flex flex-grow"></span>
         @if (_websocketService.socketStatus()) {
-        <span class="bg-green-500 w-4 h-4 rounded-full"></span>
+            <span class="bg-green-500 w-4 h-4 rounded-full"></span>
         } @else {
-        <span class="bg-red-600 w-4 h-4 rounded-full"></span>
+            <span class="bg-red-600 w-4 h-4 rounded-full"></span>
         }
         <h1 class="ml-2">{{ _websocketService.getUser() }}</h1>
         <button (click)="_websocketService.logoutWs()" class="form-button ml-4">Logout</button>
