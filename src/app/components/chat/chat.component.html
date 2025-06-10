@@ -1,6 +1,6 @@
 <section class="flex flex-col h-full">
     <div #messagesContainer class="w-full overflow-y-auto py-2 flex-1">
-        @for (message of messages(); track $index) {
+        @for (message of _chatService.privateMessages(); track $index) {
             <div class="p-2 text-gray-600 flex m-2"
                 [ngClass]="message.from !== _wsService.getUser() ? 'justify-start' : 'justify-end'">
                 <span class="w-fit px-2 py-1 rounded-lg"

@@ -15,28 +15,11 @@ import { CommonModule } from '@angular/common';
     templateUrl: './messagesPage.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class MessagesPageComponent implements OnInit, OnDestroy {
+export default class MessagesPageComponent {
     _websocketService = inject(WebsocketService);
     _chatService = inject(ChatService);
     chatSubscription: any;
-    showUserlist = signal<boolean>(true); ;
-
-    ngOnInit() {
-        this.chatSubscription = this._chatService.getPrivateMessages().subscribe({
-            next: (message: any) => {
-                // Handle the incoming message
-                console.log('New private message received:', message);
-                // You can add logic here to update the UI or store the message
-            },
-            error: (err: any) => {
-                console.error('Error receiving message:', err);
-            }
-        });
-    }
-
-    ngOnDestroy() {
-        this.chatSubscription.unsubscribe();
-    }
+    showUserlist = signal<boolean>(true);
 
     toggleHeader() {
         this.showUserlist.update(value => !value);

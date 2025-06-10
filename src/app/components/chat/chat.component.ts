@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
     templateUrl: './chat.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent {
     @ViewChild('messagesContainer') messagesContainer!: ElementRef<HTMLDivElement>;
     _chatService = inject(ChatService);
     _wsService = inject(WebsocketService);
@@ -27,23 +27,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     messagesSubscription!: Subscription;
     messages = signal<Message[]>([]);
-
-    ngOnInit() {
-        this.messagesSubscription = this._chatService.getMessages().subscribe({
-            next: (message: Message) => {
-                //console.log('New message received:', message);
-                this.messages.update(msgs => [...msgs, message]);
-                setTimeout(() => this.scrollMessagesToBottom(), 20);
-            },
-            error: (err: any) => {
-                console.error('Error receiving message:', err);
-            }
-        });
-    }
-
-    ngOnDestroy() {
-        this.messagesSubscription.unsubscribe();
-    }
 
     send() {
         const message = this.form.get('message')?.value.trim();

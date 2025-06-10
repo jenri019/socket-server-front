@@ -3,8 +3,13 @@
         class="flex flex-wrap top-0 left-0 justify-end items-center w-full p-2 fixed h-[4rem] bg-blue-900 text-white shadow-sm shadow-blue-950 z-1">
         <button class="form-button sm:hidden" (click)="toggleHeader()">Usuarios</button>
         <span class="flex flex-grow"></span>
-        <h1 class="mr-4">Usuario: <small>{{ _websocketService.getUser() }}</small></h1>
-        <button (click)="_websocketService.logoutWs()" class="form-button">Logout</button>
+        @if (_websocketService.socketStatus()) {
+        <span class="bg-green-500 w-4 h-4 rounded-full"></span>
+        } @else {
+        <span class="bg-red-600 w-4 h-4 rounded-full"></span>
+        }
+        <h1 class="ml-2">{{ _websocketService.getUser() }}</h1>
+        <button (click)="_websocketService.logoutWs()" class="form-button ml-4">Logout</button>
     </header>
     <app-user-list class="w-full h-full sm:w-[20rem] fixed border-r-1 border-blue-900" [class.hidden]="!showUserlist()"
         [class.sm:block]="true" />
