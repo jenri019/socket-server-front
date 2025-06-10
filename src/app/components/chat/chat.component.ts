@@ -35,6 +35,14 @@ export class ChatComponent {
         this.form.reset();
     }
 
+    get currentMessages() {
+        const room = this._chatService.chatroom();
+        if (room === 'general') {
+            return this._chatService.generalMessages();
+        }
+        return this._chatService.privateMessages()[room] ?? [];
+    }
+
     scrollMessagesToBottom() {
         if (this.messagesContainer) {
             this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
