@@ -1,60 +1,63 @@
 # SocketFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+> Este proyecto es una app simple de envío de mensajes en tiempo real.
+> 
+> This project is a simple real-time messaging app.
 
-## Development server
+### Prerequisites
 
-To start a local development server, run:
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.io/cli) (`npm install -g @angular/cli`)
 
-```bash
-ng serve
-```
+### Setup
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Clone this repository.
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   ng serve
+   ```
+   The app will be available at [http://localhost:4200](http://localhost:4200).
 
-## Code scaffolding
+### WebSocket Server
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To enable real-time chat, you need a WebSocket server running. You can use the following repository:
 
-```bash
-ng generate component component-name
-```
+- [https://github.com/jenri019/socket-server.git](https://github.com/jenri019/socket-server.git)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Follow the instructions in that repository to set up and run the server.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## Español
 
-To build the project run:
+Este proyecto es una aplicación de chat simple construida con Angular que utiliza WebSockets para comunicación en tiempo real.
 
-```bash
-ng build
-```
+### Requisitos
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.io/cli) (`npm install -g @angular/cli`)
 
-## Running unit tests
+### Instalación
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+1. Clona este repositorio.
+2. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```sh
+   ng serve
+   ```
+   La aplicación estará disponible en [http://localhost:4200](http://localhost:4200).
 
-```bash
-ng test
-```
+### Servidor WebSocket
 
-## Running end-to-end tests
+Para habilitar el chat en tiempo real, necesitas un servidor WebSocket en funcionamiento. Puedes usar el siguiente repositorio:
 
-For end-to-end (e2e) testing, run:
+- [https://github.com/jenri019/socket-server.git](https://github.com/jenri019/socket-server.git)
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-"# socket-server-front" 
+Sigue las instrucciones en ese repositorio para configurar y ejecutar el servidor.
