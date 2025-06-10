@@ -19,7 +19,6 @@ export class WebsocketService {
     private user = signal<string | null>(null);
 
     constructor() {
-        console.log('WebsocketService initialized');
         this.socket = io(environment.wsUrl, {
             transports: ['websocket']
         });
@@ -87,7 +86,6 @@ export class WebsocketService {
 
     loadStorage() {
         const username = localStorage.getItem('username');
-        console.log('Loaded username from storage:', username);
         if (!username) return;
         this.user.set(username);
     }
