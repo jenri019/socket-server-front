@@ -2,11 +2,14 @@ import { ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnIn
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { Subscription } from 'rxjs';
-import { Message } from '../../interfaces/message.interface';
+import type { Message } from '../../interfaces/message.interface';
+import { WebsocketService } from '../../services/websocket.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-chat',
     imports: [
+        CommonModule,
         ReactiveFormsModule
     ],
     templateUrl: './chat.component.html',
@@ -15,6 +18,7 @@ import { Message } from '../../interfaces/message.interface';
 export class ChatComponent implements OnInit, OnDestroy {
     @ViewChild('messagesContainer') messagesContainer!: ElementRef<HTMLDivElement>;
     _chatService = inject(ChatService);
+    _wsService = inject(WebsocketService);
 
     private _formBuilder = inject(FormBuilder);
     form: FormGroup = this._formBuilder.group({
